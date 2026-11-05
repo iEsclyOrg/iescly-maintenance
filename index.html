@@ -16,9 +16,14 @@
       --muted: #71717a;
       --accent: #14b8a6;
       --accent-glow: #06d6a0;
-      --card: #111111;
-      --border: #1f1f1f;
+      --card: rgba(17,17,17,0.7);
+      --card-solid: #111111;
+      --border: rgba(31,31,31,0.6);
+      --border-bright: rgba(20,184,166,0.3);
       --warning: #fbbf24;
+      --glass-bg: rgba(255,255,255,0.02);
+      --glass-border: rgba(255,255,255,0.06);
+      --glass-highlight: rgba(255,255,255,0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     @media (prefers-reduced-motion: reduce) {
@@ -36,6 +41,7 @@
       overflow-x: hidden;
       position: relative;
     }
+    /* Animated background */
     .bg-grid {
       position: fixed;
       inset: 0;
@@ -84,6 +90,8 @@
       100% { opacity: 0; transform: translateY(-10vh) scale(1); }
     }
     .container { position: relative; z-index: 1; max-width: 520px; width: 100%; text-align: center; }
+    
+    /* Liquid glass logo */
     .logo {
       width: 72px;
       height: 72px;
@@ -93,11 +101,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 40px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+      box-shadow: 
+        0 0 40px rgba(20,184,166,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        inset 0 -1px 0 rgba(0,0,0,0.2);
       animation: logoPulse 3s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
     }
-    @keyframes logoPulse { 0%,100% { box-shadow: 0 0 40px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.1); } 50% { box-shadow: 0 0 60px rgba(20,184,166,0.5), inset 0 1px 0 rgba(255,255,255,0.1); } }
-    .logo svg { width: 40px; height: 40px; }
+    .logo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .logo:hover::before { opacity: 1; }
+    @keyframes logoPulse { 
+      0%,100% { box-shadow: 0 0 40px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2); } 
+      50% { box-shadow: 0 0 60px rgba(20,184,166,0.5), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2); } 
+    }
+    .logo svg { width: 40px; height: 40px; position: relative; z-index: 1; }
+    
     h1 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(2rem, 6vw, 3rem);
@@ -130,23 +157,79 @@
       color: var(--warning);
       font-weight: 500;
       animation: bannerPulse 2s ease-in-out infinite;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
-    @keyframes bannerPulse { 0%,100% { border-color: rgba(251,191,36,0.3); box-shadow: 0 0 0 0 rgba(251,191,36,0); } 50% { border-color: rgba(251,191,36,0.6); box-shadow: 0 0 20px rgba(251,191,36,0.15); } }
+    @keyframes bannerPulse { 
+      0%,100% { border-color: rgba(251,191,36,0.3); box-shadow: 0 0 0 0 rgba(251,191,36,0); } 
+      50% { border-color: rgba(251,191,36,0.6); box-shadow: 0 0 20px rgba(251,191,36,0.15); } 
+    }
     .status-dot {
       width: 8px; height: 8px; border-radius: 50%; background: var(--warning);
       animation: blink 1.5s ease-in-out infinite;
+      box-shadow: 0 0 8px var(--warning);
     }
     @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    
+    /* Liquid Glass Cards */
     .info-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
       padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       text-align: left;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
-    .info-card:hover { border-color: rgba(20,184,166,0.3); box-shadow: 0 0 30px rgba(20,184,166,0.08); }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--glass-highlight) 0%, transparent 50%, rgba(255,255,255,0.01) 100%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .info-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .info-card:hover {
+      border-color: var(--border-bright);
+      background: rgba(20,184,166,0.03);
+      box-shadow: 
+        0 0 0 1px rgba(20,184,166,0.1),
+        0 20px 40px -10px rgba(20,184,166,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      transform: translateY(-4px) scale(1.01);
+    }
+    .info-card:hover::after { opacity: 1; }
+    .info-card:active { transform: translateY(-2px) scale(1.005); }
+    
+    /* Liquid ripple effect on cards */
+    .info-card .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(20,184,166,0.15);
+      transform: scale(0);
+      animation: ripple 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+    
     .info-card-title {
       display: flex;
       align-items: center;
@@ -156,6 +239,8 @@
       font-weight: 600;
       margin-bottom: 0.75rem;
       color: var(--fg);
+      position: relative;
+      z-index: 1;
     }
     .info-card-icon {
       width: 20px; height: 20px;
@@ -163,10 +248,22 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      position: relative;
+      z-index: 1;
     }
-    .info-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+    .info-card p { 
+      color: var(--muted); 
+      font-size: 0.9rem; 
+      line-height: 1.6; 
+      margin: 0; 
+      position: relative;
+      z-index: 1;
+    }
     .info-card strong { color: var(--fg); }
+    
     .btn-group { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 2rem; }
+    
+    /* Liquid Glass Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -176,34 +273,85 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.9375rem;
       font-weight: 600;
-      border-radius: 10px;
+      border-radius: 12px;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
       border: none;
       cursor: pointer;
       white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .btn:hover::before { opacity: 1; }
+    .btn .btn-glow {
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), #06b6d4);
+      opacity: 0;
+      filter: blur(12px);
+      transition: opacity 0.3s ease;
+      z-index: -2;
+    }
+    .btn:hover .btn-glow { opacity: 0.4; }
+    .btn .liquid-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: -1;
+    }
+    .btn:hover .liquid-fill { transform: translateY(0); }
+    
     .btn-primary {
       background: linear-gradient(135deg, var(--accent) 0%, #0d9488 100%);
       color: var(--bg);
-      box-shadow: 0 4px 20px rgba(20,184,166,0.3);
+      box-shadow: 
+        0 4px 20px rgba(20,184,166,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
     }
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(20,184,166,0.45);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 30px rgba(20,184,166,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        0 0 0 1px rgba(20,184,166,0.3);
     }
-    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:active { transform: translateY(-1px); }
+    
     .btn-secondary {
-      background: var(--bg-elevated);
+      background: var(--glass-bg);
       color: var(--fg);
-      border: 1px solid var(--border);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
     }
     .btn-secondary:hover {
-      background: var(--card);
-      border-color: rgba(20,184,166,0.4);
+      background: rgba(20,184,166,0.05);
+      border-color: var(--border-bright);
       color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 30px rgba(20,184,166,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 0 0 1px rgba(20,184,166,0.2);
     }
-    .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; position: relative; z-index: 1; }
+    
     .contact-section {
       padding-top: 1.5rem;
       border-top: 1px solid var(--border);
@@ -217,26 +365,57 @@
       font-weight: 500;
     }
     .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+    
+    /* Liquid Glass Contact Links */
     .contact-link {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       padding: 0.625rem 1.125rem;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
       color: var(--fg);
       text-decoration: none;
       font-size: 0.875rem;
       font-weight: 500;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     }
+    .contact-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .contact-link:hover::before { opacity: 1; }
+    .contact-link .liquid-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(20,184,166,0.1), transparent);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: -1;
+    }
+    .contact-link:hover .liquid-fill { transform: translateY(0); }
     .contact-link:hover {
-      border-color: var(--accent);
+      border-color: var(--border-bright);
       color: var(--accent);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 20px -5px rgba(20,184,166,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.1);
     }
-    .contact-link svg { width: 16px; height: 16px; }
+    .contact-link svg { width: 16px; height: 16px; position: relative; z-index: 1; }
+    
     .footer {
       margin-top: 2.5rem;
       padding-top: 1.5rem;
@@ -246,6 +425,8 @@
     }
     .footer a { color: var(--accent); text-decoration: none; }
     .footer a:hover { text-decoration: underline; }
+    
+    /* Entrance animations */
     .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease-out forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     .delay-1 { animation-delay: 0.1s; }
@@ -255,6 +436,8 @@
     .delay-5 { animation-delay: 0.5s; }
     .delay-6 { animation-delay: 0.6s; }
     .delay-7 { animation-delay: 0.7s; }
+    .delay-8 { animation-delay: 0.8s; }
+    .delay-9 { animation-delay: 0.9s; }
   </style>
 </head>
 <body>
@@ -278,53 +461,60 @@
       <span>Server migration in progress — Expected back within a few days</span>
     </div>
 
-    <div class="info-card fade-up delay-4">
+    <div class="info-card fade-up delay-4" data-card="1">
       <div class="info-card-title"><span class="info-card-icon">🛡</span> Your Data is Safe</div>
       <p>All licenses, user data, and purchase history are preserved. Only the infrastructure is being moved.</p>
     </div>
 
-    <div class="info-card fade-up delay-5">
+    <div class="info-card fade-up delay-5" data-card="2">
       <div class="info-card-title"><span class="info-card-icon">⚡</span> What's Happening</div>
       <p>Our AWS instance was suspended. We're deploying to a fresh VPS with improved reliability and performance.</p>
     </div>
 
-    <div class="info-card fade-up delay-6">
+    <div class="info-card fade-up delay-6" data-card="3">
       <div class="info-card-title"><span class="info-card-icon">🔔</span> Stay Updated</div>
       <p>Join our Telegram community for real-time status updates and announcements.</p>
     </div>
 
     <div class="btn-group fade-up delay-7">
       <a class="btn btn-primary" href="https://t.me/+Q1JOkBB4a5w2MGZh" target="_blank" rel="noopener">
+        <span class="liquid-fill"></span>
+        <span class="btn-glow"></span>
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.782.6-3.369-1.342-3.369-1.342-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .263.18.572.681.475C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         Join Community
       </a>
       <a class="btn btn-secondary" href="https://t.me/iescly" target="_blank" rel="noopener">
+        <span class="liquid-fill"></span>
+        <span class="btn-glow"></span>
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 4v8l-6 4-6-4V6l6-4 6 4zm-2 12V6l-4 2.67 4 2.66V18l-4-2.67-4 2.67V6l6-4 6 4z"/></svg>
         DM @iescly
       </a>
     </div>
 
-    <div class="contact-section fade-up delay-7">
+    <div class="contact-section fade-up delay-8">
       <p class="contact-label">Need a license urgently?</p>
       <div class="contact-links">
         <a class="contact-link" href="https://t.me/iescly" target="_blank" rel="noopener">
+          <span class="liquid-fill"></span>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.782.6-3.369-1.342-3.369-1.342-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .263.18.572.681.475C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
           <span>@iescly</span>
         </a>
         <a class="contact-link" href="https://t.me/+Q1JOkBB4a5w2MGZh" target="_blank" rel="noopener">
+          <span class="liquid-fill"></span>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 4v8l-6 4-6-4V6l6-4 6 4zm-2 12V6l-4 2.67 4 2.66V18l-4-2.67-4 2.67V6l6-4 6 4z"/></svg>
           <span>Community</span>
         </a>
       </div>
     </div>
 
-    <footer class="footer">
+    <footer class="footer fade-up delay-9">
       <p>InstaReport — Automation Platform for Social Media Workflows</p>
       <p style="margin-top:0.5rem"><a href="https://t.me/+Q1JOkBB4a5w2MGZh" target="_blank" rel="noopener">Telegram</a> · <a href="https://discord.gg/v6ebT5aFx" target="_blank" rel="noopener">Discord</a></p>
     </footer>
   </main>
 
   <script>
+    // Generate floating particles
     const container = document.getElementById('particles');
     const particleCount = 18;
     for (let i = 0; i < particleCount; i++) {
@@ -335,9 +525,29 @@
       p.style.animationDuration = (4 + Math.random() * 4) + 's';
       container.appendChild(p);
     }
+
+    // Liquid ripple effect on cards
+    document.querySelectorAll('.info-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.style.width = ripple.style.height = '20px';
+        card.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+
+    // Respect reduced motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      document.querySelectorAll('.particle, .glow-orb, .bg-grid').forEach(el => el.style.animation = 'none');
+      document.querySelectorAll('.particle, .glow-orb, .bg-grid, .ripple').forEach(el => el.style.animation = 'none');
+      document.querySelectorAll('.info-card, .btn, .contact-link').forEach(el => el.style.transition = 'none');
     }
   </script>
 </body>
