@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstaReport — Under Maintenance</title>
-  <meta name="description" content="InstaReport is temporarily under maintenance for server migration. Join our Telegram for updates or DM @iescly for urgent licenses.">
+  <title>InstaReport — Server Offline</title>
+  <meta name="description" content="InstaReport server is temporarily offline. Join Telegram for updates or DM @iescly for urgent licenses.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
       --border: rgba(31,31,31,0.6);
       --border-bright: rgba(20,184,166,0.3);
       --warning: #fbbf24;
+      --danger: #ef4444;
       --glass-bg: rgba(255,255,255,0.02);
       --glass-border: rgba(255,255,255,0.06);
       --glass-highlight: rgba(255,255,255,0.08);
@@ -41,7 +42,6 @@
       overflow-x: hidden;
       position: relative;
     }
-    /* Animated background */
     .bg-grid {
       position: fixed;
       inset: 0;
@@ -91,7 +91,6 @@
     }
     .container { position: relative; z-index: 1; max-width: 520px; width: 100%; text-align: center; }
     
-    /* Liquid glass logo */
     .logo {
       width: 72px;
       height: 72px;
@@ -149,29 +148,28 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.25rem;
-      background: linear-gradient(135deg, rgba(251,191,36,0.15) 0%, rgba(251,191,36,0.05) 100%);
-      border: 1px solid rgba(251,191,36,0.3);
+      background: linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(239,68,68,0.05) 100%);
+      border: 1px solid rgba(239,68,68,0.3);
       border-radius: 100px;
       margin-bottom: 2rem;
       font-size: 0.875rem;
-      color: var(--warning);
+      color: var(--danger);
       font-weight: 500;
       animation: bannerPulse 2s ease-in-out infinite;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
     }
     @keyframes bannerPulse { 
-      0%,100% { border-color: rgba(251,191,36,0.3); box-shadow: 0 0 0 0 rgba(251,191,36,0); } 
-      50% { border-color: rgba(251,191,36,0.6); box-shadow: 0 0 20px rgba(251,191,36,0.15); } 
+      0%,100% { border-color: rgba(239,68,68,0.3); box-shadow: 0 0 0 0 rgba(239,68,68,0); } 
+      50% { border-color: rgba(239,68,68,0.6); box-shadow: 0 0 20px rgba(239,68,68,0.15); } 
     }
     .status-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--warning);
+      width: 8px; height: 8px; border-radius: 50%; background: var(--danger);
       animation: blink 1.5s ease-in-out infinite;
-      box-shadow: 0 0 8px var(--warning);
+      box-shadow: 0 0 8px var(--danger);
     }
     @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
     
-    /* Liquid Glass Cards */
     .info-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -217,7 +215,6 @@
     .info-card:hover::after { opacity: 1; }
     .info-card:active { transform: translateY(-2px) scale(1.005); }
     
-    /* Liquid ripple effect on cards */
     .info-card .ripple {
       position: absolute;
       border-radius: 50%;
@@ -263,7 +260,6 @@
     
     .btn-group { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 2rem; }
     
-    /* Liquid Glass Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -366,7 +362,6 @@
     }
     .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
     
-    /* Liquid Glass Contact Links */
     .contact-link {
       display: inline-flex;
       align-items: center;
@@ -426,7 +421,6 @@
     .footer a { color: var(--accent); text-decoration: none; }
     .footer a:hover { text-decoration: underline; }
     
-    /* Entrance animations */
     .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease-out forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     .delay-1 { animation-delay: 0.1s; }
@@ -453,22 +447,22 @@
       </svg>
     </div>
 
-    <h1 class="fade-up delay-1">Under Maintenance</h1>
-    <p class="subtitle fade-up delay-2">We're migrating to a new server. The license system, dashboard, and API are temporarily offline.</p>
+    <h1 class="fade-up delay-1">Server Offline</h1>
+    <p class="subtitle fade-up delay-2">Our VPS is currently unreachable. The license system, dashboard, and API are temporarily unavailable.</p>
 
     <div class="status-banner fade-up delay-3">
       <span class="status-dot" aria-hidden="true"></span>
-      <span>Server migration in progress — Expected back within a few days</span>
+      <span>VPS connection failed — Working on restoring service</span>
     </div>
 
     <div class="info-card fade-up delay-4" data-card="1">
       <div class="info-card-title"><span class="info-card-icon">🛡</span> Your Data is Safe</div>
-      <p>All licenses, user data, and purchase history are preserved. Only the infrastructure is being moved.</p>
+      <p>All licenses, user data, and purchase history are preserved in our database. Only the server is offline.</p>
     </div>
 
     <div class="info-card fade-up delay-5" data-card="2">
       <div class="info-card-title"><span class="info-card-icon">⚡</span> What's Happening</div>
-      <p>Our AWS instance was suspended. We're deploying to a fresh VPS with improved reliability and performance.</p>
+      <p>Our VPS at 31.184.245.77 is unreachable (100% packet loss). We're investigating with the provider to restore service ASAP.</p>
     </div>
 
     <div class="info-card fade-up delay-6" data-card="3">
@@ -514,7 +508,6 @@
   </main>
 
   <script>
-    // Generate floating particles
     const container = document.getElementById('particles');
     const particleCount = 18;
     for (let i = 0; i < particleCount; i++) {
@@ -526,7 +519,6 @@
       container.appendChild(p);
     }
 
-    // Liquid ripple effect on cards
     document.querySelectorAll('.info-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -543,7 +535,6 @@
       });
     });
 
-    // Respect reduced motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
       document.querySelectorAll('.particle, .glow-orb, .bg-grid, .ripple').forEach(el => el.style.animation = 'none');
