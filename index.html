@@ -3,28 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstaReport — Server Offline</title>
-  <meta name="description" content="InstaReport server is temporarily offline. Join Telegram for updates or DM @iescly for urgent licenses.">
+  <title>InstaReport — Redirecting to New Domain</title>
+  <meta name="description" content="InstaReport has moved to a new domain due to AWS suspension. Redirecting in 5 seconds...">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #050505;
-      --bg-elevated: #0d0d0d;
       --fg: #fafafa;
       --muted: #71717a;
       --accent: #14b8a6;
       --accent-glow: #06d6a0;
       --card: rgba(17,17,17,0.7);
-      --card-solid: #111111;
       --border: rgba(31,31,31,0.6);
       --border-bright: rgba(20,184,166,0.3);
-      --warning: #fbbf24;
-      --danger: #ef4444;
       --glass-bg: rgba(255,255,255,0.02);
       --glass-border: rgba(255,255,255,0.06);
-      --glass-highlight: rgba(255,255,255,0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     @media (prefers-reduced-motion: reduce) {
@@ -68,29 +63,7 @@
     .glow-orb-1 { top: -100px; right: -100px; animation-delay: 0s; }
     .glow-orb-2 { bottom: -150px; left: -150px; animation-delay: -4s; background: radial-gradient(circle at center, rgba(6,214,160,0.1) 0%, transparent 70%); }
     @keyframes float { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-20px) scale(1.05); } }
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 50%;
-      opacity: 0;
-      animation: particleRise 6s ease-in-out infinite;
-    }
-    @keyframes particleRise {
-      0% { opacity: 0; transform: translateY(100vh) scale(0); }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.4; }
-      100% { opacity: 0; transform: translateY(-10vh) scale(1); }
-    }
     .container { position: relative; z-index: 1; max-width: 520px; width: 100%; text-align: center; }
-    
     .logo {
       width: 72px;
       height: 72px;
@@ -100,345 +73,40 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 
-        0 0 40px rgba(20,184,166,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.1),
-        inset 0 -1px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 0 40px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
       animation: logoPulse 3s ease-in-out infinite;
-      position: relative;
-      overflow: hidden;
     }
-    .logo::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .logo:hover::before { opacity: 1; }
-    @keyframes logoPulse { 
-      0%,100% { box-shadow: 0 0 40px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2); } 
-      50% { box-shadow: 0 0 60px rgba(20,184,166,0.5), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2); } 
-    }
-    .logo svg { width: 40px; height: 40px; position: relative; z-index: 1; }
-    
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2rem, 6vw, 3rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-      background: linear-gradient(135deg, #fafafa 0%, #a1a1aa 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.02em;
-    }
-    .subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.125rem);
-      color: var(--muted);
-      margin-bottom: 2rem;
-      font-weight: 400;
-      line-height: 1.6;
-    }
-    .status-banner {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      background: linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(239,68,68,0.05) 100%);
-      border: 1px solid rgba(239,68,68,0.3);
-      border-radius: 100px;
-      margin-bottom: 2rem;
-      font-size: 0.875rem;
-      color: var(--danger);
-      font-weight: 500;
-      animation: bannerPulse 2s ease-in-out infinite;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-    @keyframes bannerPulse { 
-      0%,100% { border-color: rgba(239,68,68,0.3); box-shadow: 0 0 0 0 rgba(239,68,68,0); } 
-      50% { border-color: rgba(239,68,68,0.6); box-shadow: 0 0 20px rgba(239,68,68,0.15); } 
-    }
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--danger);
-      animation: blink 1.5s ease-in-out infinite;
-      box-shadow: 0 0 8px var(--danger);
-    }
-    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-    
-    .info-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin-bottom: 1.25rem;
-      text-align: left;
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .info-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--glass-highlight) 0%, transparent 50%, rgba(255,255,255,0.01) 100%);
-      opacity: 0.5;
-      pointer-events: none;
-    }
-    .info-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .info-card:hover {
-      border-color: var(--border-bright);
-      background: rgba(20,184,166,0.03);
-      box-shadow: 
-        0 0 0 1px rgba(20,184,166,0.1),
-        0 20px 40px -10px rgba(20,184,166,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.1);
-      transform: translateY(-4px) scale(1.01);
-    }
-    .info-card:hover::after { opacity: 1; }
-    .info-card:active { transform: translateY(-2px) scale(1.005); }
-    
-    .info-card .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(20,184,166,0.15);
-      transform: scale(0);
-      animation: ripple 0.6s ease-out forwards;
-      pointer-events: none;
-    }
-    @keyframes ripple {
-      to { transform: scale(4); opacity: 0; }
-    }
-    
-    .info-card-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: var(--fg);
-      position: relative;
-      z-index: 1;
-    }
-    .info-card-icon {
-      width: 20px; height: 20px;
-      background: linear-gradient(135deg, var(--accent), #06b6d4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      position: relative;
-      z-index: 1;
-    }
-    .info-card p { 
-      color: var(--muted); 
-      font-size: 0.9rem; 
-      line-height: 1.6; 
-      margin: 0; 
-      position: relative;
-      z-index: 1;
-    }
+    @keyframes logoPulse { 0%,100% { box-shadow: 0 0 40px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.1); } 50% { box-shadow: 0 0 60px rgba(20,184,166,0.5), inset 0 1px 0 rgba(255,255,255,0.1); } }
+    .logo svg { width: 40px; height: 40px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; background: linear-gradient(135deg, #fafafa 0%, #a1a1aa 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .subtitle { font-size: clamp(1rem, 2.5vw, 1.125rem); color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+    .info-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 1.5rem; margin-bottom: 2rem; backdrop-filter: blur(24px) saturate(180%); text-align: left; }
+    .info-card-title { display: flex; align-items: center; gap: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--fg); }
+    .info-card-icon { width: 20px; height: 20px; background: linear-gradient(135deg, var(--accent), #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .info-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin: 0; }
     .info-card strong { color: var(--fg); }
-    
-    .btn-group { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 2rem; }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.875rem 1.75rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
+    .countdown { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 10vw, 5rem); font-weight: 700; color: var(--accent); margin: 1.5rem 0; text-shadow: 0 0 30px rgba(20,184,166,0.5); }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin: 2rem 0; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2rem; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; border-radius: 12px; text-decoration: none; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); border: none; cursor: pointer; white-space: nowrap; position: relative; overflow: hidden; }
+    .btn::before { content: ''; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%); opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
     .btn:hover::before { opacity: 1; }
-    .btn .btn-glow {
-      position: absolute;
-      inset: -2px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), #06b6d4);
-      opacity: 0;
-      filter: blur(12px);
-      transition: opacity 0.3s ease;
-      z-index: -2;
-    }
-    .btn:hover .btn-glow { opacity: 0.4; }
-    .btn .liquid-fill {
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      z-index: -1;
-    }
-    .btn:hover .liquid-fill { transform: translateY(0); }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, #0d9488 100%);
-      color: var(--bg);
-      box-shadow: 
-        0 4px 20px rgba(20,184,166,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.2);
-    }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(20,184,166,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.2),
-        0 0 0 1px rgba(20,184,166,0.3);
-    }
-    .btn-primary:active { transform: translateY(-1px); }
-    
-    .btn-secondary {
-      background: var(--glass-bg);
-      color: var(--fg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .btn-secondary:hover {
-      background: rgba(20,184,166,0.05);
-      border-color: var(--border-bright);
-      color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(20,184,166,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.1),
-        0 0 0 1px rgba(20,184,166,0.2);
-    }
-    .btn svg { width: 18px; height: 18px; flex-shrink: 0; position: relative; z-index: 1; }
-    
-    .contact-section {
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .contact-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-    }
-    .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
-    
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.625rem 1.125rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      color: var(--fg);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-    .contact-link::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .contact-link:hover::before { opacity: 1; }
-    .contact-link .liquid-fill {
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(20,184,166,0.1), transparent);
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      z-index: -1;
-    }
-    .contact-link:hover .liquid-fill { transform: translateY(0); }
-    .contact-link:hover {
-      border-color: var(--border-bright);
-      color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 
-        0 8px 20px -5px rgba(20,184,166,0.2),
-        inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .contact-link svg { width: 16px; height: 16px; position: relative; z-index: 1; }
-    
-    .footer {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
+    .btn-primary { background: linear-gradient(135deg, var(--accent) 0%, #0d9488 100%); color: var(--bg); box-shadow: 0 4px 20px rgba(20,184,166,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(20,184,166,0.45), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 0 1px rgba(20,184,166,0.3); }
+    .btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
     .footer a { color: var(--accent); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-    
     .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease-out forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     .delay-1 { animation-delay: 0.1s; }
     .delay-2 { animation-delay: 0.2s; }
     .delay-3 { animation-delay: 0.3s; }
     .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
-    .delay-6 { animation-delay: 0.6s; }
-    .delay-7 { animation-delay: 0.7s; }
-    .delay-8 { animation-delay: 0.8s; }
-    .delay-9 { animation-delay: 0.9s; }
   </style>
 </head>
 <body>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
   <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
-  <div class="particles" id="particles" aria-hidden="true"></div>
 
   <main class="container">
     <div class="logo fade-up">
@@ -447,98 +115,64 @@
       </svg>
     </div>
 
-    <h1 class="fade-up delay-1">Server Offline</h1>
-    <p class="subtitle fade-up delay-2">Our server is currently unreachable. The license system, dashboard, and API are temporarily unavailable.</p>
+    <h1 class="fade-up delay-1">Moved to New Domain</h1>
+    <p class="subtitle fade-up delay-2">Due to AWS suspension, <code>iescly.duckdns.org</code> lost its SSL certificate and is no longer accessible.</p>
 
-    <div class="status-banner fade-up delay-3">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span>Server connection failed — Working on restoring service</span>
+    <div class="info-card fade-up delay-3">
+      <div class="info-card-title"><span class="info-card-icon">🔒</span> Why the Move?</div>
+      <p>Our AWS EC2 instance was suspended, which caused the Let's Encrypt SSL certificate on <strong>iescly.duckdns.org</code> to expire. Without a valid certificate, browsers block access to the site.</p>
     </div>
 
-    <div class="info-card fade-up delay-4" data-card="1">
-      <div class="info-card-title"><span class="info-card-icon">🛡</span> Your Data is Safe</div>
-      <p>All licenses, user data, and purchase history are preserved in our database. Only the server is offline.</p>
-    </div>
+    <div class="countdown fade-up delay-4" id="countdown">5</div>
+    <p class="subtitle fade-up delay-4">Redirecting to the new InstaReport website in <span id="countdown-text">5</span> seconds...</p>
 
-    <div class="info-card fade-up delay-5" data-card="2">
-      <div class="info-card-title"><span class="info-card-icon">⚡</span> What's Happening</div>
-      <p>Our infrastructure is being migrated to a new server. We're working with our provider to restore service ASAP.</p>
-    </div>
-
-    <div class="info-card fade-up delay-6" data-card="3">
-      <div class="info-card-title"><span class="info-card-icon">🔔</span> Stay Updated</div>
-      <p>Join our Telegram community for real-time status updates and announcements.</p>
-    </div>
-
-    <div class="btn-group fade-up delay-7">
-      <a class="btn btn-primary" href="https://t.me/+Q1JOkBB4a5w2MGZh" target="_blank" rel="noopener">
-        <span class="liquid-fill"></span>
-        <span class="btn-glow"></span>
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.782.6-3.369-1.342-3.369-1.342-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .263.18.572.681.475C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-        Join Community
-      </a>
-      <a class="btn btn-secondary" href="https://t.me/iescly" target="_blank" rel="noopener">
-        <span class="liquid-fill"></span>
-        <span class="btn-glow"></span>
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 4v8l-6 4-6-4V6l6-4 6 4zm-2 12V6l-4 2.67 4 2.66V18l-4-2.67-4 2.67V6l6-4 6 4z"/></svg>
-        DM @iescly
+    <div class="btn-group fade-up delay-5">
+      <a class="btn btn-primary" href="https://web-production-957c3a26.up.railway.app/" target="_blank" rel="noopener" id="redirect-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Go to New Website Now
       </a>
     </div>
 
-    <div class="contact-section fade-up delay-8">
-      <p class="contact-label">Need a license urgently?</p>
-      <div class="contact-links">
-        <a class="contact-link" href="https://t.me/iescly" target="_blank" rel="noopener">
-          <span class="liquid-fill"></span>
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.782.6-3.369-1.342-3.369-1.342-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .263.18.572.681.475C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-          <span>@iescly</span>
-        </a>
-        <a class="contact-link" href="https://t.me/+Q1JOkBB4a5w2MGZh" target="_blank" rel="noopener">
-          <span class="liquid-fill"></span>
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 4v8l-6 4-6-4V6l6-4 6 4zm-2 12V6l-4 2.67 4 2.66V18l-4-2.67-4 2.67V6l6-4 6 4z"/></svg>
-          <span>Community</span>
-        </a>
-      </div>
-    </div>
-
-    <footer class="footer fade-up delay-9">
+    <footer class="footer fade-up delay-6">
       <p>InstaReport — Automation Platform for Social Media Workflows</p>
       <p style="margin-top:0.5rem"><a href="https://t.me/+Q1JOkBB4a5w2MGZh" target="_blank" rel="noopener">Telegram</a> · <a href="https://discord.gg/v6ebT5aFx" target="_blank" rel="noopener">Discord</a></p>
     </footer>
   </main>
 
   <script>
-    const container = document.getElementById('particles');
-    const particleCount = 18;
-    for (let i = 0; i < particleCount; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDelay = Math.random() * 6 + 's';
-      p.style.animationDuration = (4 + Math.random() * 4) + 's';
-      container.appendChild(p);
-    }
-
-    document.querySelectorAll('.info-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const ripple = document.createElement('div');
-        ripple.className = 'ripple';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        ripple.style.width = ripple.style.height = '20px';
-        card.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-      });
+    const countdownEl = document.getElementById('countdown');
+    const countdownTextEl = document.getElementById('countdown-text');
+    const redirectBtn = document.getElementById('redirect-btn');
+    const targetUrl = 'https://web-production-957c3a26.up.railway.app/';
+    
+    let seconds = 5;
+    
+    const updateCountdown = () => {
+      countdownEl.textContent = seconds;
+      countdownTextEl.textContent = seconds;
+      if (seconds <= 0) {
+        window.location.href = targetUrl;
+        return;
+      }
+      seconds--;
+    };
+    
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    
+    // Instant redirect on button click
+    redirectBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearInterval(interval);
+      window.location.href = targetUrl;
     });
-
+    
+    // Respect reduced motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      document.querySelectorAll('.particle, .glow-orb, .bg-grid, .ripple').forEach(el => el.style.animation = 'none');
-      document.querySelectorAll('.info-card, .btn, .contact-link').forEach(el => el.style.transition = 'none');
+      document.querySelectorAll('.glow-orb, .bg-grid').forEach(el => el.style.animation = 'none');
+      clearInterval(interval);
+      window.location.href = targetUrl;
     }
   </script>
 </body>
